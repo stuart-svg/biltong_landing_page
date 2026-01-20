@@ -2,10 +2,28 @@
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
 exports.handler = async function(event, context) {
+    // Add CORS headers
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Content-Type': 'application/json'
+    };
+
+    // Handle preflight request
+    if (event.httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 200,
+            headers,
+            body: ''
+        };
+    }
+
     // Only allow POST requests
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
+            headers,
             body: JSON.stringify({ error: 'Method not allowed' })
         };
     }
@@ -16,6 +34,7 @@ exports.handler = async function(event, context) {
         if (!messages || !Array.isArray(messages)) {
             return {
                 statusCode: 400,
+                headers,
                 body: JSON.stringify({ error: 'Invalid request: messages array required' })
             };
         }
@@ -73,9 +92,7 @@ exports.handler = async function(event, context) {
 
         return {
             statusCode: 200,
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers,
             body: JSON.stringify({
                 message: assistantMessage
             })
@@ -85,6 +102,7 @@ exports.handler = async function(event, context) {
         console.error('Chat function error:', error);
         return {
             statusCode: 500,
+            headers,
             body: JSON.stringify({
                 error: 'Failed to process chat request',
                 details: error.message
