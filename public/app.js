@@ -8,17 +8,27 @@ let isCallActive = false;
 
 function initializeVAPI() {
     try {
-        // Check if VAPI is loaded from NPM package
-        if (typeof window.Vapi === 'undefined') {
-            console.error('Vapi SDK not loaded from NPM');
+        // Check if VAPI SDK is loaded from GitHub CDN
+        if (typeof window.vapiSDK === 'undefined') {
+            console.error('vapiSDK not loaded');
             updateVAPIStatus('SDK not loaded', 'error');
             return;
         }
 
-        console.log('Initializing Vapi Web SDK');
+        console.log('Initializing VAPI SDK');
 
-        // Initialize using official Vapi Web SDK constructor
-        vapiInstance = new window.Vapi(VAPI_PUBLIC_KEY);
+        // Initialize using vapiSDK.run() with button hidden (we use custom button)
+        vapiInstance = window.vapiSDK.run({
+            apiKey: VAPI_PUBLIC_KEY,
+            assistant: VAPI_ASSISTANT_ID,
+            config: {
+                // Hide the auto-generated button since we have our own
+                position: "bottom-right",
+                offset: "40px",
+                width: "0px",  // Hide button
+                height: "0px", // Hide button
+            },
+        });
 
         if (!vapiInstance) {
             console.error('VAPI instance is null');
@@ -26,7 +36,7 @@ function initializeVAPI() {
             return;
         }
 
-        console.log('Vapi initialized successfully');
+        console.log('VAPI initialized successfully');
         updateVAPIStatus('Ready to talk', 'ready');
 
         // VAPI Event Listeners
