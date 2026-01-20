@@ -18,7 +18,23 @@ function initializeVAPI() {
         // Initialize VAPI with assistant configuration
         vapiInstance = window.vapiSDK.run({
             apiKey: VAPI_PUBLIC_KEY,
-            assistant: VAPI_ASSISTANT_ID
+            assistant: {
+                firstMessage: "Hello! I'm here to help you with our High Protein Biltong. What would you like to know?",
+                model: {
+                    provider: "openai",
+                    model: "gpt-3.5-turbo",
+                    messages: [
+                        {
+                            role: "system",
+                            content: "You are a friendly customer support agent for High Protein Biltong. Help customers learn about health benefits, flavours, and products."
+                        }
+                    ]
+                },
+                voice: {
+                    provider: "11labs",
+                    voiceId: "21m00Tcm4TlvDq8ikWAM"
+                }
+            }
         });
 
         if (!vapiInstance) {
