@@ -18,8 +18,14 @@ function initializeVAPI() {
         // Initialize VAPI with assistant configuration
         vapiInstance = window.vapiSDK.run({
             apiKey: VAPI_PUBLIC_KEY,
-            assistantId: VAPI_ASSISTANT_ID
+            assistant: VAPI_ASSISTANT_ID
         });
+
+        if (!vapiInstance) {
+            console.error('VAPI instance is null');
+            updateVAPIStatus('Initialization failed', 'error');
+            return;
+        }
 
         // VAPI Event Listeners
         vapiInstance.on('call-start', () => {
