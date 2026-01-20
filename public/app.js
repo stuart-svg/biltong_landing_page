@@ -8,21 +8,20 @@ let isCallActive = false;
 
 function initializeVAPI() {
     try {
-        // Debug: Check what's available
-        console.log('window.Vapi:', typeof window.Vapi);
-        console.log('window.vapiSDK:', typeof window.vapiSDK);
-        console.log('All window properties with vapi:', Object.keys(window).filter(k => k.toLowerCase().includes('vapi')));
-
-        // Check if VAPI is loaded
-        if (typeof window.Vapi === 'undefined') {
-            console.error('VAPI not loaded - window.Vapi is undefined');
+        // Check if VAPI SDK is loaded
+        if (typeof window.vapiSDK === 'undefined') {
+            console.error('VAPI SDK not loaded');
             updateVAPIStatus('SDK not loaded', 'error');
             return;
         }
 
-        // Initialize VAPI with web configuration
-        console.log('Initializing Vapi with public key');
-        vapiInstance = new window.Vapi(VAPI_PUBLIC_KEY);
+        console.log('Initializing VAPI with assistantId:', VAPI_ASSISTANT_ID);
+
+        // Initialize VAPI Web SDK
+        vapiInstance = window.vapiSDK.run({
+            apiKey: VAPI_PUBLIC_KEY,
+            assistantId: VAPI_ASSISTANT_ID
+        });
 
         if (!vapiInstance) {
             console.error('VAPI instance is null');
@@ -30,9 +29,8 @@ function initializeVAPI() {
             return;
         }
 
-        console.log('Setting assistant ID:', VAPI_ASSISTANT_ID);
-        // Start the assistant
-        vapiInstance.start(VAPI_ASSISTANT_ID);
+        console.log('VAPI initialized successfully');
+        updateVAPIStatus('Ready to talk', 'ready');
 
         // VAPI Event Listeners
         vapiInstance.on('call-start', () => {
