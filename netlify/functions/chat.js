@@ -1,6 +1,9 @@
 // Netlify serverless function for OpenRouter chat
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
+// Import fetch for Node.js (Netlify supports this)
+const fetch = require('node-fetch');
+
 exports.handler = async function(event, context) {
     // Only allow POST requests
     if (event.httpMethod !== 'POST') {

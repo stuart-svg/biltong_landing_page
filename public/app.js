@@ -8,16 +8,16 @@ let isCallActive = false;
 
 function initializeVAPI() {
     try {
+        // Check if VAPI SDK is loaded
+        if (typeof window.vapiSDK === 'undefined') {
+            console.error('VAPI SDK not loaded');
+            updateVAPIStatus('SDK not loaded', 'error');
+            return;
+        }
+
         vapiInstance = window.vapiSDK.run({
             apiKey: VAPI_PUBLIC_KEY,
-            assistant: VAPI_ASSISTANT_ID,
-            config: {
-                transcriber: {
-                    provider: "deepgram",
-                    model: "nova-2",
-                    language: "en"
-                }
-            }
+            assistant: VAPI_ASSISTANT_ID
         });
 
         // VAPI Event Listeners
