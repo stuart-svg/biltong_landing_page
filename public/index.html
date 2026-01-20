@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Protein Biltong - Customer Support</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🥩 High Protein Biltong</h1>
+            <p class="tagline">Premium quality biltong with exceptional nutritional benefits</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Introduction -->
+            <section class="intro-section">
+                <h2>Welcome!</h2>
+                <p>Experience our customer support through voice or chat. Ask about our biltong's health advantages, explore our delicious flavours, or get detailed product information.</p>
+            </section>
+
+            <!-- Support Options -->
+            <div class="support-grid">
+                <!-- Voice Agent Card -->
+                <div class="support-card">
+                    <div class="card-header">
+                        <h3>🎤 Voice Assistant</h3>
+                        <p>Speak with our AI-powered customer support agent</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="vapi-status" class="status-indicator">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Ready to talk</span>
+                        </div>
+                        <button id="vapi-button" class="primary-button">
+                            <span class="button-icon">🎙️</span>
+                            <span class="button-text">Start Voice Call</span>
+                        </button>
+                        <p class="help-text">Click to start a voice conversation about our biltong products</p>
+                    </div>
+                </div>
+
+                <!-- Chat Agent Card -->
+                <div class="support-card">
+                    <div class="card-header">
+                        <h3>💬 Chat Assistant</h3>
+                        <p>Chat with our AI-powered support bot</p>
+                    </div>
+                    <div class="card-body">
+                        <button id="chat-toggle" class="primary-button">
+                            <span class="button-icon">💬</span>
+                            <span class="button-text">Open Chat</span>
+                        </button>
+                        <p class="help-text">Click to chat about health benefits, flavours, and products</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <section class="features-section">
+                <h2>What You Can Ask About</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">💪</span>
+                        <h4>Health Benefits</h4>
+                        <p>High protein content, nutritional advantages, dietary information</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🌶️</span>
+                        <h4>Flavours</h4>
+                        <p>Explore our range of delicious biltong flavours and varieties</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📦</span>
+                        <h4>Products</h4>
+                        <p>Sizes, pricing, ingredients, and ordering information</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎯</span>
+                        <h4>Custom Orders</h4>
+                        <p>Bulk orders, subscriptions, and special requests</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2024 High Protein Biltong. Powered by AI customer support.</p>
+        </footer>
+    </div>
+
+    <!-- Chat Window (Hidden by default) -->
+    <div id="chat-window" class="chat-window hidden">
+        <div class="chat-header">
+            <h3>💬 Chat Support</h3>
+            <button id="chat-close" class="close-button">✕</button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Hello! I'm here to help you learn about our High Protein Biltong. Ask me about health benefits, flavours, or product information!</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Type your message..." />
+            <button id="chat-send" class="send-button">Send</button>
+        </div>
+        <div id="chat-loading" class="chat-loading hidden">
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

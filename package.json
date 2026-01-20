@@ -1,0 +1,17 @@
+{
+  "name": "biltong-landing-page",
+  "version": "1.0.0",
+  "description": "High Protein Biltong customer support landing page with VAPI voice agent and AI chatbot",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "keywords": [
+    "biltong",
+    "vapi",
+    "chatbot",
+    "customer-support"
+  ],
+  "author": "",
+  "license": "MIT"
+}
