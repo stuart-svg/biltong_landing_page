@@ -1,6 +1,6 @@
 // VAPI Configuration
 const VAPI_PUBLIC_KEY = '56dd4525-81a8-4624-9780-a81878a89c55';
-const VAPI_ASSISTANT_ID = '6262199c-f7a6-4b98-99e9-4ff96db9d37f';
+const VAPI_ASSISTANT_ID = 'd9e21a53-cd34-4fb6-9f24-e0551e264b5f';
 
 // Initialize VAPI
 let vapiInstance = null;
