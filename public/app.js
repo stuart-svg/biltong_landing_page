@@ -15,9 +15,12 @@ function initializeVAPI() {
             return;
         }
 
+        // Initialize VAPI with assistant configuration
         vapiInstance = window.vapiSDK.run({
             apiKey: VAPI_PUBLIC_KEY,
-            assistant: VAPI_ASSISTANT_ID
+            assistant: {
+                assistantId: VAPI_ASSISTANT_ID
+            }
         });
 
         // VAPI Event Listeners

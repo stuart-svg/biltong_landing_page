@@ -1,9 +1,6 @@
 // Netlify serverless function for OpenRouter chat
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
-// Import fetch for Node.js (Netlify supports this)
-const fetch = require('node-fetch');
-
 exports.handler = async function(event, context) {
     // Only allow POST requests
     if (event.httpMethod !== 'POST') {
@@ -23,30 +20,53 @@ exports.handler = async function(event, context) {
             };
         }
 
-        // Call OpenRouter API
-        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-                'Content-Type': 'application/json',
-                'HTTP-Referer': 'https://highproteinbiltong.com', // Optional: your site URL
-                'X-Title': 'High Protein Biltong Chat' // Optional: your app name
-            },
-            body: JSON.stringify({
-                model: 'openai/gpt-4o',
-                messages: messages,
-                temperature: 0.7,
-                max_tokens: 500
-            })
+        // Call OpenRouter API using native https module (no dependencies needed)
+        const https = require('https');
+        const apiData = JSON.stringify({
+            model: 'openai/gpt-4o',
+            messages: messages,
+            temperature: 0.7,
+            max_tokens: 500
+        });
+
+        const response = await new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'openrouter.ai',
+                port: 443,
+                path: '/api/v1/chat/completions',
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Content-Length': apiData.length,
+                    'HTTP-Referer': 'https://highproteinbiltong.com',
+                    'X-Title': 'High Protein Biltong Chat'
+                }
+            };
+
+            const req = https.request(options, (res) => {
+                let data = '';
+                res.on('data', (chunk) => { data += chunk; });
+                res.on('end', () => {
+                    resolve({
+                        ok: res.statusCode === 200,
+                        status: res.statusCode,
+                        data: data
+                    });
+                });
+            });
+
+            req.on('error', reject);
+            req.write(apiData);
+            req.end();
         });
 
         if (!response.ok) {
-            const errorData = await response.text();
-            console.error('OpenRouter API error:', errorData);
+            console.error('OpenRouter API error:', response.data);
             throw new Error(`OpenRouter API error: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data = JSON.parse(response.data);
 
         // Extract the assistant's message
         const assistantMessage = data.choices[0].message.content;
