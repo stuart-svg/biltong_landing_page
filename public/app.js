@@ -1,5 +1,5 @@
 // VAPI Configuration
-const VAPI_PUBLIC_KEY = 'b3d3a6a0-a181-4117-8b3d-90e4f632a5a7';
+const VAPI_PUBLIC_KEY = '56dd4525-81a8-4624-9780-a81878a89c55';
 const VAPI_ASSISTANT_ID = '6262199c-f7a6-4b98-99e9-4ff96db9d37f';
 
 // Initialize VAPI
