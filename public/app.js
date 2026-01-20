@@ -17,10 +17,10 @@ function initializeVAPI() {
 
         console.log('Initializing VAPI with assistantId:', VAPI_ASSISTANT_ID);
 
-        // Initialize VAPI Web SDK
+        // Initialize VAPI Web SDK - try with assistant object
         vapiInstance = window.vapiSDK.run({
             apiKey: VAPI_PUBLIC_KEY,
-            assistantId: VAPI_ASSISTANT_ID
+            assistant: VAPI_ASSISTANT_ID
         });
 
         if (!vapiInstance) {
